@@ -48,6 +48,7 @@ table {
 }
 /** end reset css**/
 body {
+	position: relative;
 	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
@@ -125,6 +126,11 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+header nav ul li a {
+	text-decoration: none;
+	color: #000;
+}
 .gallery {
 	width: 100%;
 	display: grid;
@@ -133,10 +139,26 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
+.gallery-modal {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.gallery-modal .photo-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    max-height: 400px;
+}
+
 .gallery img {
 	width: 100%;
-
 }
+
 #contact {
 	width: 50%;
 margin: auto;
@@ -186,3 +208,326 @@ footer nav ul {
 	margin: 2em
 }
 
+/***************** filters */
+
+.filters {
+	display: flex;
+	justify-content: center;
+	gap: 0 10px;
+	margin-bottom: 50px;
+	margin-top: 100px;
+}
+
+.filter_btn {
+	font-size: 16px;
+	font-weight: 700;
+	border-radius: 60px;
+	border: 1px solid #1D6154;
+	color: #1D6154;
+	background-color: #fff;
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.filter_btn_one {
+	padding: 9px 30px;
+}
+
+.filter_btn_two {
+	padding: 9px 20px;
+}
+
+.filter_btn_three {
+	padding: 9px 15px;
+}
+
+.filter_btn_four {
+	padding: 9px 10px;
+}
+
+.filter_btn.active {
+	background-color: #1D6154;
+	color: white;
+  }
+
+  .filter_btn:focus {
+	background-color: #1D6154;
+	color: white;
+  }  
+
+  /***************** Modal */
+
+  #portfolio li a {
+	text-decoration: none;
+  }
+
+#modify-link {
+	display: none;
+	text-decoration: none;
+	color: #000;
+}
+
+.list-modify_link {
+	display: flex;
+	justify-content: center;
+	list-style-type: none;
+    text-align: center;
+	margin-left: 320px;
+	margin-top: -50px;
+}
+
+.modify_icon {
+	margin-right: 3px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+.close-x {
+    color: black !important;
+    float: right;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close {
+	display: none;
+}
+
+.fa-arrow-left {
+	font-size: 22px;
+	cursor: pointer;
+}
+
+.header-mod {
+    position: fixed;
+    top: 0;
+	left: 0;
+    width: 100vw;
+	background-color: #000;
+    padding: 15px 0;
+	z-index: 1000;
+}
+
+.header-mod-inner {
+	display: flex;
+    justify-content: center;
+}
+
+#modify-link-header {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.modify_icn {
+	margin-right: 8px;
+}
+
+.modify_icn,
+.modify_text {
+	color: #fff;
+}
+/*********
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+    position: relative;
+}
+
+
+.modal-header {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.modal-header h2 {
+	color: #000;
+	font-size: 24px;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+/* Стили для тела модального окна */
+.media-inner {
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+	background-color: #E8F1F6;
+	padding: 15px 0 20px 0;
+    height: 100%;
+}
+
+.media_btn {
+   margin: 7px 0;
+   padding: 10px 33px;
+   background-color: #CBD6DC;
+   color: #306685;
+   border-radius: 50px;
+   border: none;
+   cursor: pointer;
+}
+
+.file-info {
+    font-size: 12px;
+    color: grey;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+/* Дополнительные стили */
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input[type="text"], select, input[type="file"], input[type="submit"] {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+	background-color: #A7A7A7;
+    color: white;
+    border: none;
+    cursor: pointer;
+	width: 50%;
+	margin-top: 80px;
+}
+
+.input-inner {
+	position: relative;
+}
+
+.input-inner::before {
+    content: "";
+    display: block;
+    width: 560px;
+    height: 0.1px;
+    background-color: #000;
+    margin: 0 auto;
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+input[type="submit"]:hover {
+	background-color: #1D6154;
+}
+
+.button-container {
+	position: relative;
+    text-align: center;
+	padding-top: 80px;
+}
+
+.button-container::before {
+    content: "";
+    display: block;
+    width: 600px;
+    height: 0.1px;
+    background-color: #000;
+    margin: 0 auto;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#openAddPhotoView {
+	border-radius: 25px;
+	padding: 5px 40px;
+	background-color: #1D6154;
+	color: #fff;
+}
+
+.photo-container {
+    position: relative;
+    margin: 10px;
+}
+
+.icon-container {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: none;
+}
+
+.photo-container:hover .icon-container {
+    display: block;
+}
+
+.delete-icon {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.img-preview {
+    width: 210px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery_photo-inner {
+	display: flex;
+	flex-wrap: wrap;
+}
+.gallery_photo-inner img {
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+}
