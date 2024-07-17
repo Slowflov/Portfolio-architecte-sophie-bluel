@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             // Дополнительный код для администраторов
             if (role === 'admin') {
-                // Добавьте элементы интерфейса для администраторов
+                // Добавляем элементы интерфейса для администраторов
                 const adminPanelLink = document.createElement('a');
                 adminPanelLink.href = 'admin_panel.html';
                 adminPanelLink.textContent = 'Admin Panel';
@@ -32,21 +32,16 @@ document.addEventListener('DOMContentLoaded', function() {
     checkLoginStatus();
 
     // Проверяем наличие токена в sessionStorage
-let token = sessionStorage.getItem('token');
-if (token) {
-    // Если токен есть, значит пользователь авторизован
-    const modifyLink = document.getElementById('modify-link');
-    if (modifyLink) {
-        modifyLink.style.display = 'inline-block'; // Делаем кнопку видимой
+    let token = sessionStorage.getItem('token');
+    if (token) {
+        // Если токен есть, значит пользователь авторизован
+        const modifyLink = document.getElementById('modify-link');
+        if (modifyLink) {
+            modifyLink.style.display = 'inline-block'; // Делаем кнопку видимой
+        }
     }
-}
 });
 
-// Функция для проверки авторизации пользователя
-function isUserAuthenticated() {
-    // Пример: проверяем наличие токена в localStorage
-    return localStorage.getItem('authToken') !== null;
-}
 
 
 

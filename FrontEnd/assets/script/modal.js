@@ -12,17 +12,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const backToGallery = query('.backToGallery');
     const submitPhotoButton = getElem('submitPhotoButton');
     const fileInput = getElem('fileInput');
-    const validateButton = query('#mediaForm input[type="submit"]');
     const headerMod = query('.header-mod');
 
-    const getToken = () => sessionStorage.getItem('token') || console.error('No token found in localStorage');
+    const getToken = () => sessionStorage.getItem('token') || console.error('No token found in sessionStorage');
 
-    // Проверка токена и отображение элемента headerMod
     if (headerMod) {
         headerMod.style.display = sessionStorage.getItem('token') ? 'block' : 'none';
     }
 
-    // Открытие модального окна
     const openModal = event => {
         event.preventDefault();
         modal.style.display = 'block';
@@ -34,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
     headerMod?.addEventListener('click', openModal);
     modifyLink?.addEventListener('click', openModal);
 
-    // Закрытие модального окна
     closeModalBtn?.addEventListener('click', () => {
         modal.style.display = 'none';
     });
@@ -44,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Переключение вида
     openAddPhotoView?.addEventListener('click', event => {
         event.preventDefault();
         galleryView.style.display = 'none';
@@ -57,37 +52,26 @@ document.addEventListener('DOMContentLoaded', function() {
         addPhotoView.style.display = 'none';
     });
 
-    // Обработчик кнопки "Ajouter photo"
     submitPhotoButton?.addEventListener('click', () => {
         fileInput.click();
     });
 
-    // Обработчик изменения файла и предварительного просмотра изображения
     fileInput.addEventListener('change', async event => {
-        console.log('File input changed');
         const file = event.target.files[0];
         if (file) {
-            console.log('File selected:', file.name);
-            const fileNameWithoutExtension = file.name.replace(/\.[^/.]+$/, ''); // Удаляем расширение (последние символы после последней точки)
-
+            const fileNameWithoutExtension = file.name.replace(/\.[^/.]+$/, '');
             document.getElementById('title').value = fileNameWithoutExtension;
 
-            const formData = new FormData(mediaForm);
-            formData.append('image', file);
-
-            const reader = new FileReader(); // Создаем объект для чтения файлов
-            reader.readAsDataURL(file); // Читаем файл как URL
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
 
             reader.onload = () => {
-                console.log('File loaded');
-                // После загрузки файла, устанавливаем его как src для изображения
                 const mediaImg = query('.media_img');
                 if (mediaImg) {
-                    mediaImg.src = reader.result; // Устанавливаем src изображения
-                    mediaImg.style.display = 'block'; // Показываем изображение
+                    mediaImg.src = reader.result;
+                    mediaImg.style.display = 'block';
                 }
 
-                // Отображаем предварительный просмотр изображения
                 const imgPreviewContainer = document.createElement('div');
                 imgPreviewContainer.className = 'img-container';
 
@@ -97,37 +81,60 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 imgPreviewContainer.appendChild(imgPreview);
 
-                const previewContainer = document.querySelector('.media-inner');
-                previewContainer.innerHTML = ''; // Clear existing content
+                const previewContainer = query('.media-inner');
+                previewContainer.innerHTML = '';
                 previewContainer.appendChild(imgPreviewContainer);
             };
-
-            await envoiePhoto(formData); // Вызываем функцию отправки фото на сервер
         }
     });
 
-    // Подтверждение и отправка формы медиа
-    validateButton?.addEventListener('click', event => {
-        event.preventDefault(); // Предотвращаем стандартное поведение формы
-        console.log('Form submitted');
-        modal.style.display = 'none';
-        mediaForm.reset();
-    });
+    mediaForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        const file = fileInput.files[0];
+        if (!file) {
+            return console.error('No file selected');
+        }
 
-    // Функция отправки фотографии на сервер
-    async function envoiePhoto(formData) {
+        const title = getElem('title').value;
+        const category = getElem('category').value;
+
+        if (!title || !category) {
+            return console.error('Title and category are required');
+        }
+
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('title', title);
+        formData.append('category', category);
+
         const token = getToken();
         if (!token) return;
+
         try {
-            const newPhotoPosted = await fetch('http://localhost:5678/api/works', {
-                headers: { 'Authorization': 'Bearer ' + token },
-                body: formData,
-                method: 'POST'
+            console.log('Submitting form with the following data:');
+            formData.forEach((value, key) => {
+                console.log(`${key}:`, value);
             });
 
-            if (newPhotoPosted.status === 401) return console.error('Unauthorized: Invalid token');
+            const response = await fetch('http://localhost:5678/api/works', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            });
 
-            const result = await newPhotoPosted.json();
+            const responseText = await response.text();
+
+            if (!response.ok) {
+                console.error(`Error ${response.status}:`, responseText);
+                return;
+            }
+
+            const result = JSON.parse(responseText);
+            console.log('Response from server:', result);
+
             if (result) {
                 const gallery = getElem('gallery');
                 const modalGallery = getElem('modalGallery');
@@ -164,23 +171,30 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             console.error('Error posting new photo:', error);
         }
-    }
+    });
 
-    // Функция удаления работы
     const deleteWork = async (workId, elementToRemove) => {
         const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
             method: 'DELETE',
-            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+            headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
         });
         if (response.ok) elementToRemove.remove();
         else console.error('Error deleting work');
     };
 
-    // Dummy fetchWorks function to prevent errors
     function fetchWorks() {
         console.log('Fetching works...');
     }
 });
+
+
+
+
+
+
+
+
+
 
 
 
