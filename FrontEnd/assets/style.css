@@ -521,13 +521,3 @@ input[type="submit"]:hover {
     height: 100%;
     object-fit: cover;
 }
-
-.gallery_photo-inner {
-	display: flex;
-	flex-wrap: wrap;
-}
-.gallery_photo-inner img {
-	width: 100px;
-	height: 100px;
-	margin: 10px;
-}

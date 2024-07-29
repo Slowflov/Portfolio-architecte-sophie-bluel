@@ -59,13 +59,6 @@
 				<div id="gallery-view">
 					<h2>Galerie photo</h2>
 					<div class="gallery-modal"></div>					
-					<div class="gallery_photo-inner">
-						<div class="icon-container">
-							<span class="material-icons-outlined delete-icon">
-								delete
-								</span>
-						</div>
-					</div>
 					<div class="button-container">
 						<button id="openAddPhotoView">Ajouter une photo</button>
 					</div>
@@ -78,41 +71,35 @@
 					<div class="modal-body">
 						<form action="index.html" method="post" id="mediaForm">
 							<div class="media-inner"> 
-								<img class="media_img" src="./images/picture-svgrepo-com 1.png" alt="icon-photoloading">
+								<img class="media_img" src="./images/picture-svgrepo-com 1.png" alt="icon-photoloading" id="previewImg">
 								<button type="button" class="media_btn" id="submitPhotoButton">+ Ajouter photo</button>
-								<input type="file" id="fileInput" name="image" style="display: none;" accept="image/png, image/jpeg">
-							<p class="file-info">jpg, png : 4mo max</p>
-						</div>
+								<input type="file" id="image" name="image" style="display: none;" accept="image/png, image/jpeg">
+								<p class="file-info" id="pFile">jpg, png : 4mo max</p>
+							</div>
 							
 							<label for="title">Title</label>
 							<input type="text" id="title" name="title">
-		
+					
 							<label for="category">Catégorie</label>
 							<select id="category" name="category">
 								<option value=""></option>
-								<option value="category1">Objets</option>
-								<option value="category2">Appartements</option>
-								<option value="category3">Hotels & restaurants</option>
 							</select>
 							<div class="input-inner"> 
-								<input type="submit" value="Valider" id="validAjoutPhoto">
-						</div>
-                </form>
-				<div id="modalGallery"></div>
-			</div>
+								<input type="submit" value="Valide" id="validAjoutPhoto">
+							</div>
+						</form>
+						<div id="modalGallery"></div>
+					</div>
 		</div>
 	</div>
 </div>
 		<span class="close">&times;</span>
-		
-		<!--  ajoute filters div -->
 		  <div class="filters">
              <button class="filter_btn filter_btn_one">Tous</button>
 			 <button class="filter_btn filter_btn_two">Objets</button>
 			 <button class="filter_btn filter_btn_three">Appartements</button>
 			 <button class="filter_btn filter_btn_four">Hotels & restaurants</button>
 		  </div>
-		<!--  ajoute filters div -->
 		<div class="gallery"></div>
 	</section>
 	<section id="contact">
@@ -142,5 +129,6 @@
 <script src="./assets/script/login.js"></script>
 <script src="./assets/script/auth.js"></script>
 <script src="./assets/script/modal.js"></script>
+<script src="./assets/script/image.js"></script>
 </body>
 </html>
