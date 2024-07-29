@@ -352,7 +352,7 @@ footer nav ul {
 }
 /*********
 
-/* Модальное окно */
+/* Fenêtre modale */
 .modal {
     display: none;
     position: fixed;
@@ -390,7 +390,7 @@ footer nav ul {
     margin: 0;
 }
 
-/* Стили для тела модального окна */
+/* Styles de corps de fenêtre modale */
 .media-inner {
    display: flex;
     flex-direction: column;
@@ -420,7 +420,7 @@ footer nav ul {
     padding: 20px;
 }
 
-/* Дополнительные стили */
+/* Styles supplémentaires */
 
 label {
     display: block;
