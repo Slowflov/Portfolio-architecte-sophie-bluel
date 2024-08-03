@@ -110,6 +110,7 @@ li:hover {
 	display: block;
 	margin: auto;
 	width: 80%;
+	margin-bottom: 120px;
 }
 
 #introduction article {
@@ -142,9 +143,7 @@ header nav ul li a {
 .gallery-modal {
 	width: 100%;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	grid-template-columns: repeat(5, 1fr);
 }
 
 .gallery-modal .photo-container img {
@@ -265,6 +264,7 @@ footer nav ul {
 	display: none;
 	text-decoration: none;
 	color: #000;
+	margin-bottom: 100px;
 }
 
 .list-modify_link {
@@ -420,6 +420,10 @@ footer nav ul {
     padding: 20px;
 }
 
+.hidden-text {
+    display: none;
+}
+
 /* Styles supplémentaires */
 
 label {
@@ -501,7 +505,6 @@ input[type="submit"]:hover {
     position: absolute;
     top: 5px;
     right: 5px;
-    display: none;
 }
 
 .photo-container:hover .icon-container {
@@ -510,9 +513,9 @@ input[type="submit"]:hover {
 
 .delete-icon {
     color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    padding: 5px;
+    background-color: #000;
+    /* border-radius: 50%; */
+    padding: 2px;
     cursor: pointer;
 }
 

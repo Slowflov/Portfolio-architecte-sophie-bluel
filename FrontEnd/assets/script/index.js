@@ -151,6 +151,13 @@ const addWorkToGallery = (item) => {
 
     // Cloner l'élément figure pour la galerie modale
     let figureModal = figure.cloneNode(true);
+
+    // Trouver l'élément figcaption dans la copie pour la galerie modale
+    let figcaptionModal = figureModal.querySelector('figcaption');
+    if (figcaptionModal) {
+        figcaptionModal.classList.add('hidden-text'); // Ajouter la classe pour cacher le texte
+    }
+
     // Créer un conteneur pour les icônes dans la galerie modale
     let iconContainer = document.createElement('div');
     iconContainer.classList.add('icon-container');
@@ -174,6 +181,7 @@ const addWorkToGallery = (item) => {
     const galleryModal = document.querySelector('.gallery-modal');
     galleryModal.appendChild(figureModal);
 };
+
 
 // Vérifier la présence du jeton lors du chargement de la page
 verifyTokenIsPresent();
